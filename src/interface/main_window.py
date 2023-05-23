@@ -1,7 +1,8 @@
 import cv2
-from PyQt6.QtCore import QSize, QDir
+from PyQt6.QtCore import QSize, QDir, Qt
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QMainWindow, QFileDialog, QPushButton
+from PyQt6.QtWidgets import QMainWindow, QFileDialog, QPushButton, QWidget, QVBoxLayout, QLabel, QScrollArea, \
+    QHBoxLayout
 
 from src.misc import PathManager, TextRecognizer
 from . import TextWindow
@@ -28,9 +29,41 @@ class MainWindow(QMainWindow):
         file_dialog.exec()
 
     def create_layout(self):
-        btn = QPushButton("Browse File", self)
+        main_widget = QWidget()
+        self.setCentralWidget(main_widget)
+        main_layout = QHBoxLayout()
+        main_widget.setLayout(main_layout)
+
+        left_block = QWidget()
+        left_layout = QVBoxLayout()
+        left_block.setLayout(left_layout)
+
+        for i in range(3):
+            item_button = QPushButton(f'element {i + 1}')
+            item_button.setFixedSize(150, 100)
+            left_layout.addWidget(item_button)
+
+        item_button = QPushButton('+')
+        item_button.setFixedSize(150, 100)
+        left_layout.addWidget(item_button)
+        scroll_area = QScrollArea()
+        scroll_area.setFixedWidth(200)
+        scroll_area.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        scroll_area.setWidget(left_block)
+        main_layout.addWidget(scroll_area)
+
+        right_block = QWidget()
+        right_layout = QVBoxLayout()
+        right_block.setLayout(right_layout)
+
+        # info_label = QLabel("Информация об элементе")
+        # right_layout.addWidget(info_label)
+
+        btn = QPushButton("Browse File")
         btn.clicked.connect(self.browse_file)
         btn.setGeometry(50, 50, 200, 30)
+        right_layout.addWidget(btn)
+        main_layout.addWidget(right_block)
 
     def file_selected(self, file_path):
         file_path = str(file_path).replace('/', '\\')
