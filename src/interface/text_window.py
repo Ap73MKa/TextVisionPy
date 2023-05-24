@@ -15,6 +15,6 @@ class TextWindow(QWidget):
 
         text_edit = QTextEdit()
         text_edit.setPlainText(text)
-        text_edit.setObjectName('app__text-window')
+        text_edit.setObjectName("app__text-window")
         text_edit.setReadOnly(True)
         layout.addWidget(text_edit)

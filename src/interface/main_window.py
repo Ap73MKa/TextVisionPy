@@ -1,4 +1,3 @@
-import cv2
 from PyQt6.QtCore import QSize, QDir, Qt
 from PyQt6.QtGui import QIcon, QColor
 from PyQt6.QtWidgets import (
@@ -8,13 +7,14 @@ from PyQt6.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QScrollArea,
-    QHBoxLayout, QGraphicsDropShadowEffect,
+    QHBoxLayout,
+    QGraphicsDropShadowEffect,
 )
 
 from src.misc import PathManager, TextRecognizer, FileHistory, FileEntry
 from . import TextWindow, CustomButton
 
-APP_NAME = 'TextVisionPy'
+APP_NAME = "TextVisionPy"
 
 
 class MainWindow(QMainWindow):
@@ -66,14 +66,24 @@ class MainWindow(QMainWindow):
 
     def init_navbar_elements(self):
         self.clear_layout(self.navbar_layout)
-        for el in self.file_history.history:
-            self.create_navbar_element(el)
+        for element in self.file_history.history:
+            self.create_navbar_element(element)
         self.create_add_button()
 
     def create_navbar_element(self, entry: FileEntry):
         navbar_element = CustomButton()
         navbar_element.setText(entry.create_date.strftime("%Y-%m-%d %H:%M"))
-        navbar_element.setObjectName('navbar-element')
+        navbar_element.setObjectName("navbar-element")
+        path = entry.image_path.replace("\\", "/")
+        style = f"""
+                #navbar-element {{
+                    background-image: url({path});
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-clip: content;
+                }}
+            """
+        navbar_element.setStyleSheet(style)
         navbar_element.value = entry
         navbar_element.clicked.connect(
             lambda checked, button=navbar_element: self.event_navbar_button_clicked(
@@ -85,7 +95,7 @@ class MainWindow(QMainWindow):
 
     def create_add_button(self):
         navbar_element = QPushButton("+")
-        navbar_element.setObjectName('navbar-element')
+        navbar_element.setObjectName("navbar-element")
         navbar_element.clicked.connect(self.event_plus_button_clicked)
         self.add_shadow(navbar_element)
         self.navbar_layout.addWidget(navbar_element)
@@ -94,14 +104,14 @@ class MainWindow(QMainWindow):
         app = QWidget()
         app.setLayout(self.app_layout)
         self.app_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        app.setObjectName('app-container')
+        app.setObjectName("app-container")
         self.add_shadow(app)
         self.create_browse_button()
         return app
 
     def create_browse_button(self):
         btn = QPushButton("Browse File")
-        btn.setObjectName('app__browse-button')
+        btn.setObjectName("app__browse-button")
         btn.clicked.connect(self.browse_file)
         self.add_shadow(btn)
         self.app_layout.addWidget(btn)
@@ -115,14 +125,12 @@ class MainWindow(QMainWindow):
         file_dialog.exec()
 
     def file_selected(self, file_path):
-        text = ''
+        text = ""
         try:
-            file_path = str(file_path).replace("/", "\\")
-            img = cv2.imread(str(file_path))
-            text = self.text_recognizer.get_text(img)
+            text = self.text_recognizer.get_text(file_path)
             text = " ".join(text.split())
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
         if text:
             self.file_history.add_entry(file_path, text)
             entry = self.file_history.get_last_entry()
@@ -137,12 +145,12 @@ class MainWindow(QMainWindow):
 
     def create_delete_button(self, entry_id):
         btn = CustomButton()
-        btn.setText('Delete file')
-        btn.setObjectName('app__delete-btn')
+        btn.setText("Delete file")
+        btn.setObjectName("app__delete-btn")
         btn.value = entry_id
-        btn.clicked.connect(lambda checked, button=btn: self.event_delete_button_clicked(
-                button.value
-            ))
+        btn.clicked.connect(
+            lambda checked, button=btn: self.event_delete_button_clicked(button.value)
+        )
         self.add_shadow(btn)
         self.app_layout.addWidget(btn)
 
@@ -162,14 +170,16 @@ class MainWindow(QMainWindow):
 
     @staticmethod
     def add_shadow(element):
-        shadow = QGraphicsDropShadowEffect(blurRadius=5, xOffset=0, yOffset=4, color=QColor(0, 0, 0, 12))
+        shadow = QGraphicsDropShadowEffect(
+            blurRadius=5, xOffset=0, yOffset=4, color=QColor(0, 0, 0, 12)
+        )
         element.setGraphicsEffect(shadow)
 
     @staticmethod
     def get_styles():
         style_path = PathManager.get("src/style.qss")
-        with open(style_path, "r") as f:
-            style = f.read()
+        with open(style_path, "r", encoding="UTF-8") as file:
+            style = file.read()
             return style
 
     @staticmethod

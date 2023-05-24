@@ -20,7 +20,7 @@
   background-color: white;
   overflow: hidden;
   border-radius: 10px;
-  width: 100px;
+  max-width: 200px;
   height: 100px;
 }
 
