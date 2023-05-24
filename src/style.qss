@@ -1,0 +1,61 @@
+#container {
+  background-color: #f1f5f9;
+}
+
+#navbar-container {
+  background-color: transparent;
+  border: 0;
+  width: 200px;
+  max-width: 200px;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+#navbar-container QScrollBar {
+  width: 10px;
+}
+
+#navbar-element {
+  background-color: white;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+#navbar-element:hover {
+  background-color: #bae6fd;
+  cursor: pointer;
+}
+
+#app-container {
+  background-color: white;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+#app__browse-button {
+  background: #7dd3fc;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  width: 200px;
+  max-width: 200px;
+  height: 30px;
+}
+
+#app__text-window {
+  border: 0;
+}
+
+#app__delete-btn {
+  background: #f87171;
+  color: white;
+  border-radius: 10px;
+  max-width: 100px;
+  height: 20px;
+  margin-left: 350px;
+  margin-bottom: 5px;
+}

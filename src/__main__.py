@@ -5,7 +5,7 @@ from pytesseract import pytesseract
 
 from src.interface import MainWindow
 
-PATH_TO_TESSERACT = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+PATH_TO_TESSERACT = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 def main():
@@ -16,5 +16,5 @@ def main():
     sys.exit(app.exec())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
