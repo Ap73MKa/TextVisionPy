@@ -1,5 +1,7 @@
 export type RecordType = {
-    id?: number;
+    id: number;
     text: string;
-    photo_path: string;
+    name: string;
+    dataURL: string;
+    createDate: Date;
 }

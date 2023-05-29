@@ -1,10 +1,11 @@
 import DocumentIcon from "../assets/document.svg";
 
-export default function BrowseButton(props) {
+export default function BrowseButton(props: {handleChange: (event: Event) => void}) {
     return (
         <div class="flex flex-col items-center gap-4 bg-gray-100 h-32 justify-center border-2 pr-4 border-gray-300 hover:bg-gray-200 transition-colors border-dotted rounded-xl">
             <label for="doc" class="flex items-center">
                 <div class="w-24 h-24">
+                    {/* @ts-ignore */}
                     <DocumentIcon class="fill-gray-400"/>
                 </div>
                 <div>
