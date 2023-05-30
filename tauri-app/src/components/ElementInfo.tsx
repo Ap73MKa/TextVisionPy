@@ -1,12 +1,14 @@
 import BrowseButton from './BrowseButton'
 import { RecordType } from '@/shared/RecordType'
-import { addRecord, deleteRecord, getAllRecords } from '@/utils/database'
+import { addRecord, deleteRecord } from '@/utils/database'
+import {
+  addRecordStore,
+  deleteRecordStore,
+  selectedRecord,
+  setSelectedRecord,
+} from '@/stores/recordsStore'
 
-export default function ElementInfo(props: {
-  selectedRecord: RecordType | undefined
-  setSelectedRecord: (record: RecordType | undefined) => void
-  setRecords: (records: RecordType[]) => void
-}) {
+export default function ElementInfo() {
   const handleChange = async (event: Event) => {
     const file = (event.target as HTMLInputElement).files?.[0]
     if (file) {
@@ -20,26 +22,27 @@ export default function ElementInfo(props: {
           createDate: new Date(),
         }
         await addRecord(photoData)
-        props.setRecords(await getAllRecords())
-        props.setSelectedRecord(photoData)
+        addRecordStore(photoData)
+        setSelectedRecord(photoData)
       }
       reader.readAsDataURL(file)
     }
   }
   const handleDeleteRecord = async () => {
-    if (props.selectedRecord) {
-      await deleteRecord(props.selectedRecord.id)
-      props.setRecords(await getAllRecords())
-      props.setSelectedRecord(undefined)
+    const record = selectedRecord()
+    if (record) {
+      await deleteRecord(record.id)
+      deleteRecordStore(record.id)
+      setSelectedRecord(undefined)
     }
   }
 
   return (
     <div class="w-full h-full p-2">
       <div class="flex items-center shadow-md justify-center w-full h-full rounded-2xl bg-white relative">
-        {props.selectedRecord ? (
+        {selectedRecord() ? (
           <>
-            <img src={props.selectedRecord.dataURL} alt="" class="h-40 w-40" />
+            <img src={selectedRecord()?.dataURL} alt="" class="h-40 w-40" />
             <button
               type="button"
               onClick={handleDeleteRecord}

@@ -1,10 +1,8 @@
 import { createEffect, createSignal, For } from 'solid-js'
 import { RecordType } from '@/shared/RecordType'
+import { records, setSelectedRecord } from '@/stores/recordsStore'
 
-function NavbarElement(props: {
-  record: RecordType
-  setSelectedRecord: (record: RecordType) => void
-}) {
+function NavbarElement(props: { record: RecordType }) {
   const [date, setDate] = createSignal<string>('')
   createEffect(() => {
     const dateString = props.record.createDate.toLocaleDateString()
@@ -14,7 +12,7 @@ function NavbarElement(props: {
   return (
     <button
       type="button"
-      onClick={() => props.setSelectedRecord(props.record)}
+      onClick={() => setSelectedRecord(props.record)}
       class="relative shadow-md flex justify-center overflow-hidden flex-none bg-white items-center w-full h-32 rounded-2xl"
     >
       <div class="relative w-full h-full">
@@ -31,13 +29,11 @@ function NavbarElement(props: {
   )
 }
 
-function AddRecordElement(props: {
-  setSelectedRecord: (record: RecordType | undefined) => void
-}) {
+function AddRecordElement() {
   return (
     <button
       type="button"
-      onClick={() => props.setSelectedRecord(undefined)}
+      onClick={() => setSelectedRecord(undefined)}
       class="relative shadow-md flex justify-center overflow-hidden flex-none bg-white items-center w-full h-32 rounded-2xl"
     >
       <div class="relative w-full h-full">
@@ -49,22 +45,11 @@ function AddRecordElement(props: {
   )
 }
 
-export default function Navbar(props: {
-  records: RecordType[] | undefined
-  selectedRecord: RecordType | undefined
-  setSelectedRecord: (record: RecordType | undefined) => void
-}) {
+export default function Navbar() {
   return (
     <div class="w-full p-2 gap-2 h-full overflow-y-auto flex flex-col">
-      <For each={props.records}>
-        {(record) => (
-          <NavbarElement
-            record={record}
-            setSelectedRecord={props.setSelectedRecord}
-          />
-        )}
-      </For>
-      <AddRecordElement setSelectedRecord={props.setSelectedRecord} />
+      <For each={records}>{(record) => <NavbarElement record={record} />}</For>
+      <AddRecordElement />
     </div>
   )
 }
