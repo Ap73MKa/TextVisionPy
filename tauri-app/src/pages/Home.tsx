@@ -8,7 +8,7 @@ export default function Home() {
   onMount(async () => setRecords(await getAllRecords()))
   return (
     <div class="h-screen bg-gray-100">
-      <div class="grid h-full w-full grid-cols-[250px_1fr] grid-rows-1">
+      <div class="grid h-full w-full grid-cols-1 grid-rows-[40px_1fr]">
         <Navbar />
         <ElementInfo />
       </div>
