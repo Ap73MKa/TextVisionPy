@@ -9,6 +9,7 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
     'plugin:solid/typescript',
+    'plugin:tailwindcss/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
   ],

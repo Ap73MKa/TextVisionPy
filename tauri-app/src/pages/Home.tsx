@@ -5,12 +5,10 @@ import ElementInfo from '@/components/ElementInfo'
 import { setRecords } from '@/stores/recordsStore'
 
 export default function Home() {
-  onMount(async () => {
-    setRecords(await getAllRecords())
-  })
+  onMount(async () => setRecords(await getAllRecords()))
   return (
-    <div class="h-screen">
-      <div class="bg-gray-100 w-full h-full grid grid-rows-1 grid-cols-[250px_1fr]">
+    <div class="h-screen bg-gray-100">
+      <div class="grid h-full w-full grid-cols-[250px_1fr] grid-rows-1">
         <Navbar />
         <ElementInfo />
       </div>

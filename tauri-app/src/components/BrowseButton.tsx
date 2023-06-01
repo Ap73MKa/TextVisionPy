@@ -7,16 +7,16 @@ export default function BrowseButton(props: {
     props.handleChange(event)
   }
   return (
-    <div class="flex flex-col items-center gap-4 bg-gray-100 h-32 justify-center border-2 pr-4 border-gray-300 hover:bg-gray-200 transition-colors border-dotted rounded-xl">
+    <div class="flex h-32 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dotted border-gray-300 bg-gray-100 pr-4 transition-colors hover:bg-gray-200">
       <label for="doc" class="flex items-center">
-        <div class="w-24 h-24">
+        <div class="h-24 w-24">
           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
           <DocumentIcon class="fill-gray-400" />
         </div>
         <div>
           <p class="text-2xl font-bold text-gray-500">Browse file</p>
-          <p class="text-gray-500 text-sm">.jpg, .png, .gif, .web</p>
+          <p class="text-sm text-gray-500">.jpg, .png, .gif, .web</p>
         </div>
         <input
           type="file"

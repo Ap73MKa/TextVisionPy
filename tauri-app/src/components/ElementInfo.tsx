@@ -7,26 +7,40 @@ import {
   selectedRecord,
   setSelectedRecord,
 } from '@/stores/recordsStore'
+import { createWorker } from 'tesseract.js'
 
 export default function ElementInfo() {
-  const handleChange = async (event: Event) => {
-    const file = (event.target as HTMLInputElement).files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = async (event) => {
-        const photoData: RecordType = {
-          id: Date.now(),
-          text: 'fff1',
-          name: file.name,
-          dataURL: event.target?.result as string,
-          createDate: new Date(),
-        }
-        await addRecord(photoData)
-        addRecordStore(photoData)
-        setSelectedRecord(photoData)
+  const handleFileLoad = async (file: File) => {
+    const reader = new FileReader()
+    reader.onload = async () => {
+      const imageData = reader.result as string
+      const text = await recognizeText(imageData)
+      const photoData: RecordType = {
+        id: Date.now(),
+        text: text,
+        name: file.name,
+        dataURL: imageData,
+        createDate: new Date(),
       }
-      reader.readAsDataURL(file)
+      await addRecord(photoData)
+      addRecordStore(photoData)
+      setSelectedRecord(photoData)
     }
+    reader.readAsDataURL(file)
+  }
+
+  const recognizeText = async (imageData: string) => {
+    const worker = await createWorker()
+    await worker.loadLanguage('eng')
+    await worker.initialize('eng')
+    const result = await worker.recognize(imageData)
+    await worker.terminate()
+    return result.data.text
+  }
+
+  const handleFileChange = async (event: Event) => {
+    const file = (event.target as HTMLInputElement).files?.[0]
+    if (file) await handleFileLoad(file)
   }
   const handleDeleteRecord = async () => {
     const record = selectedRecord()
@@ -38,21 +52,29 @@ export default function ElementInfo() {
   }
 
   return (
-    <div class="w-full h-full p-2">
-      <div class="flex items-center shadow-md justify-center w-full h-full rounded-2xl bg-white relative">
+    <div class="h-full w-full p-2">
+      <div class="flex h-full w-full max-w-[500px] flex-col items-center justify-center rounded-2xl bg-white shadow-md">
         {selectedRecord() ? (
           <>
-            <img src={selectedRecord()?.dataURL} alt="" class="h-40 w-40" />
-            <button
-              type="button"
-              onClick={handleDeleteRecord}
-              class="bg-red-400 top-0 right-0 mt-3 mr-3 w-36 h-7 hover:bg-red-500 transition-colors active:bg-red-600 rounded-2xl shadow-md text-white absolute"
-            >
-              Delete record
-            </button>
+            <div class="flex w-full items-center justify-between px-6">
+              <p class="pt-2 text-lg">{selectedRecord()?.name}</p>
+              <button
+                type="button"
+                onClick={handleDeleteRecord}
+                class="mt-2 h-7 w-36 rounded-2xl bg-red-400 text-white shadow-md transition-colors hover:bg-red-500 active:bg-red-600"
+              >
+                Delete record
+              </button>
+            </div>
+
+            <div class="m-4 h-full w-full overflow-y-auto px-4">
+              <p class="w-full break-words">{selectedRecord()?.text}</p>
+            </div>
           </>
         ) : (
-          <BrowseButton handleChange={(event: Event) => handleChange(event)} />
+          <BrowseButton
+            handleChange={(event: Event) => handleFileChange(event)}
+          />
         )}
       </div>
     </div>

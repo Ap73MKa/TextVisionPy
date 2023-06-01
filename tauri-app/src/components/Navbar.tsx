@@ -13,15 +13,15 @@ function NavbarElement(props: { record: RecordType }) {
     <button
       type="button"
       onClick={() => setSelectedRecord(props.record)}
-      class="relative shadow-md flex justify-center overflow-hidden flex-none bg-white items-center w-full h-32 rounded-2xl"
+      class="relative flex h-32 w-full flex-none items-center justify-center overflow-hidden rounded-2xl bg-white shadow-md"
     >
-      <div class="relative w-full h-full">
+      <div class="relative h-full w-full">
         <img
           src={props.record.dataURL}
           alt=""
-          class="w-full h-full object-cover object-center "
+          class="h-full w-full object-cover object-center "
         />
-        <p class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white/[.10] hover:bg-sky-100/[.50] transition-colors">
+        <p class="absolute inset-0 flex items-center justify-center bg-white/[.10] transition-colors hover:bg-sky-100/[.50]">
           {date()}
         </p>
       </div>
@@ -34,10 +34,10 @@ function AddRecordElement() {
     <button
       type="button"
       onClick={() => setSelectedRecord(undefined)}
-      class="relative shadow-md flex justify-center overflow-hidden flex-none bg-white items-center w-full h-32 rounded-2xl"
+      class="relative flex h-32 w-full flex-none items-center justify-center overflow-hidden rounded-2xl bg-white shadow-md"
     >
-      <div class="relative w-full h-full">
-        <p class="absolute top-0 left-0 right-0 bottom-0 text-2xl font-bold text-gray-400 flex items-center justify-center bg-white/[.10] hover:bg-sky-100/[.50] transition-colors">
+      <div class="relative h-full w-full">
+        <p class="absolute inset-0 flex items-center justify-center bg-white/[.10] text-2xl font-bold text-gray-400 transition-colors hover:bg-sky-100/[.50]">
           +
         </p>
       </div>
@@ -47,7 +47,7 @@ function AddRecordElement() {
 
 export default function Navbar() {
   return (
-    <div class="w-full p-2 gap-2 h-full overflow-y-auto flex flex-col">
+    <div class="flex h-full w-full flex-col gap-2 overflow-y-auto p-2">
       <For each={records}>{(record) => <NavbarElement record={record} />}</For>
       <AddRecordElement />
     </div>
