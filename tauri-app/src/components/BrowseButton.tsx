@@ -42,7 +42,7 @@ export default function BrowseButton() {
           id="doc"
           name="doc"
           onChange={handleFileChange}
-          accept="image/*,.png,.jpg,.gif,.web"
+          accept="image/*,.png,.jpg,.web"
           hidden
         />
       </label>

@@ -12,7 +12,10 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@solid-codemirror/codemirror": "^1.0.4",
     "@tauri-apps/api": "^1.3.0",
+    "@zoom-image/core": "^0.16.1",
+    "@zoom-image/solid": "^0.1.3",
     "idb": "^7.1.1",
     "solid-js": "^1.7.6",
     "tesseract.js": "^4.0.6"
