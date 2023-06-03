@@ -4,6 +4,7 @@ import TextEditor from '@/components/TextEditor'
 import PhotoView from '@/components/PhotoView'
 import { Panel, PanelGroup, ResizeHandle } from 'solid-resizable-panels'
 import 'solid-resizable-panels/styles.css'
+import LanguageSelect from '@/components/LanguageSelect'
 
 export default function ElementInfo() {
   return (
@@ -22,7 +23,10 @@ export default function ElementInfo() {
             </PanelGroup>
           </div>
         ) : (
-          <BrowseButton />
+          <>
+            <LanguageSelect />
+            <BrowseButton />
+          </>
         )}
       </div>
     </div>

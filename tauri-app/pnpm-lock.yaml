@@ -20,6 +20,9 @@ dependencies:
   idb:
     specifier: ^7.1.1
     version: 7.1.1
+  solid-headless:
+    specifier: ^0.13.1
+    version: 0.13.1(solid-js@1.7.6)
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
@@ -2890,6 +2893,16 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /solid-headless@0.13.1(solid-js@1.7.6):
+    resolution: {integrity: sha512-FZJai49YmdBu6oEo8aJGPMQ1Qn8xiW0cnD6vNFDIQWMKJdXEUtDEwz0hTR9aZ7Epq3IkrZs+98E0vNiv1+pZpA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      solid-js: ^1.2
+    dependencies:
+      solid-js: 1.7.6
+      solid-use: 0.6.2(solid-js@1.7.6)
+    dev: false
+
   /solid-heroicons@3.2.3(solid-js@1.7.6):
     resolution: {integrity: sha512-CGWuTGil6pM1Md2T9tVg98oKdl/U7TNHoyT2ogrN4PuZAEx7oNXTGuvdLgg8CQXSqe+Ht7EHQl1nwTWG5NPwzA==}
     peerDependencies:
@@ -2919,6 +2932,15 @@ packages:
     resolution: {integrity: sha512-qHevjQBFLbN39pzHPTKw50POMyKn3MFljiIaSn3R+DTfqpjQn1MweHpbdmHX9jnehMy7mvVW/Ua2p9uyRabBzA==}
     peerDependencies:
       solid-js: ^1.7
+    dependencies:
+      solid-js: 1.7.6
+    dev: false
+
+  /solid-use@0.6.2(solid-js@1.7.6):
+    resolution: {integrity: sha512-0ShJ5s+4PIN0pJB/BtsQucsZB+xnUeeTGaxErQDu6USn5jygZWXicAtOEvFbI8gv40xE751uY1Tz7Aib9lxL/Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      solid-js: ^1.5
     dependencies:
       solid-js: 1.7.6
     dev: false

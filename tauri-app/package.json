@@ -17,6 +17,7 @@
     "@zoom-image/core": "^0.16.1",
     "@zoom-image/solid": "^0.1.3",
     "idb": "^7.1.1",
+    "solid-headless": "^0.13.1",
     "solid-js": "^1.7.6",
     "solid-resizable-panels": "^0.4.1",
     "tesseract.js": "^4.0.6"
