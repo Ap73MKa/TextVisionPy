@@ -1,5 +1,5 @@
 import { selectedRecord } from '@/stores/recordsStore'
-import { JSXElement, onMount } from 'solid-js'
+import { createEffect, createSignal, JSXElement, onMount } from 'solid-js'
 import { useZoomImageWheel } from '@zoom-image/solid'
 import { Icon } from 'solid-heroicons'
 import {
@@ -29,6 +29,14 @@ export default function PhotoView() {
   let container: HTMLDivElement
   const { createZoomImage, zoomImageState, setZoomImageState } =
     useZoomImageWheel()
+  const [date, setDate] = createSignal('')
+  createEffect(() => {
+    const record = selectedRecord()
+    if (!record) return
+    const dateString = record.createDate.toLocaleDateString()
+    const timeString = record.createDate.toLocaleTimeString()
+    setDate(`${dateString} ${timeString}`)
+  })
 
   onMount(() => {
     createZoomImage(container)
@@ -49,6 +57,10 @@ export default function PhotoView() {
       <div class="absolute left-0 top-0 z-20 flex gap-2 p-2">
         <ZoomIcon onClick={zoomOutWheel} icon={magnifyingGlassMinus} />
         <ZoomIcon onClick={zoomInWheel} icon={magnifyingGlassPlus} />
+        <p class="line-clamp-1 text-sm">{selectedRecord()?.name}</p>
+      </div>
+      <div class="absolute bottom-0 right-0 z-20 mb-1 mr-2">
+        <p class="line-clamp-1 text-sm">{date()}</p>
       </div>
       <div
         // eslint-disable-next-line

@@ -4,6 +4,7 @@ import recognizeText from '@/utils/recognizeText'
 import { RecordType } from '@/shared/RecordType'
 import { addRecord } from '@/utils/database'
 import { addRecordStore, setSelectedRecord } from '@/stores/recordsStore'
+import { selectedLanguages } from '@/stores/languageStore'
 
 export default function BrowseButton() {
   const handleFileLoad = async (file: File) => {
@@ -27,7 +28,7 @@ export default function BrowseButton() {
 
   const handleFileChange = async (event: Event) => {
     const file = (event.target as HTMLInputElement).files?.[0]
-    if (file) await handleFileLoad(file)
+    if (file && selectedLanguages().length > 0) await handleFileLoad(file)
   }
   return (
     <div class="flex h-32 flex-col items-center justify-center gap-4 rounded-xl border border-gray-300 bg-gray-100 pr-4 text-gray-500 transition-colors hover:border-sky-900/[.20] hover:bg-sky-100 hover:text-sky-900">

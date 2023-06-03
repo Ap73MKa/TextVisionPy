@@ -15,12 +15,12 @@
     "@solid-codemirror/codemirror": "^1.0.4",
     "@tauri-apps/api": "^1.3.0",
     "@zoom-image/core": "^0.16.1",
-    "@zoom-image/solid": "^0.1.3",
+    "@zoom-image/solid": "^0.1.4",
     "idb": "^7.1.1",
     "solid-headless": "^0.13.1",
     "solid-js": "^1.7.6",
     "solid-resizable-panels": "^0.4.1",
-    "tesseract.js": "^4.0.6"
+    "tesseract.js": "^4.1.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.3.1",
@@ -28,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.41.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
