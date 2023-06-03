@@ -6,5 +6,5 @@ export default async function recognizeText(imageData: string) {
   await worker.initialize('eng')
   const result = await worker.recognize(imageData)
   await worker.terminate()
-  return result.data.text
+  return result.data.text.replace(/^\s*[\r\n]/gm, '')
 }

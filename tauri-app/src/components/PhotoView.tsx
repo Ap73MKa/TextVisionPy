@@ -54,10 +54,6 @@ export default function PhotoView() {
         // eslint-disable-next-line
         // @ts-ignore
         ref={container}
-        style={{
-          width: 'var(--imageContainerWidth)',
-          height: 'var(--imageContainerHeight)',
-        }}
         class="!overflow-visible"
       >
         <img src={selectedRecord()?.dataURL} alt="img" class="h-full w-full" />

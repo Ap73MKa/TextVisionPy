@@ -35,7 +35,7 @@ export default function BrowseButton() {
         <Icon path={documentArrowUp} class="h-24 w-24 text-gray-400" />
         <div>
           <p class="text-2xl font-bold text-gray-500">Browse file</p>
-          <p class="text-sm text-gray-500">.jpg, .png, .gif, .web</p>
+          <p class="text-sm text-gray-500">.jpg, .png, .web</p>
         </div>
         <input
           type="file"
